@@ -4,9 +4,9 @@ export const metadata = {
   title: 'PureVelo | Premium Durum Wheat Foods',
   description: 'Premium durum wheat vermicelli, pasta and grain-based foods from Velora Grain & Foods.',
   icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon.png',
-    apple: '/favicon.png',
+    icon: '/purevelo-favicon.png',
+    shortcut: '/purevelo-favicon.png',
+    apple: '/purevelo-favicon.png',
   },
 };
 
