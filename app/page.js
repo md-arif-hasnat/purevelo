@@ -13,10 +13,26 @@ export default function Home() {
   const [status, setStatus] = useState('');
   const [sending, setSending] = useState(false);
   async function submitContact(e) {
-    e.preventDefault(); setSending(true); setStatus('');
-    const payload = Object.fromEntries(new FormData(e.currentTarget).entries());
-    try { const res = await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); const data=await res.json(); if(!res.ok) throw new Error(data.error||'Could not send your enquiry.'); e.currentTarget.reset(); setStatus('Thank you. Your enquiry has been sent successfully.'); }
-    catch(err){setStatus(err.message||'Could not send your enquiry. Please try again.');} finally{setSending(false);}
+    e.preventDefault();
+    const form = e.currentTarget;
+    setSending(true);
+    setStatus('');
+    const payload = Object.fromEntries(new FormData(form).entries());
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Could not send your enquiry.');
+      form.reset();
+      setStatus('Thank you. Your enquiry has been sent successfully.');
+    } catch (err) {
+      setStatus(err.message || 'Could not send your enquiry. Please try again.');
+    } finally {
+      setSending(false);
+    }
   }
   return <>
     <header className="site-header"><div className="nav-shell"><a className="brand" href="#home" aria-label="PureVelo home"><img src="/purevelo-logo.png" alt="PureVelo"/></a><nav className="main-nav"><a href="#home">Home</a><a href="#about">About Us</a><a href="#products">Products</a><a href="#quality">Quality & Manufacturing</a><a href="#b2b">B2B & Distribution</a><a href="#contact">Contact</a></nav><a className="nav-cta" href="#b2b">Become a Distributor</a></div></header>
