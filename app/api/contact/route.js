@@ -24,7 +24,7 @@ export async function POST(request) {
 
     const apiKey = process.env.RESEND_API_KEY;
     const to = process.env.CONTACT_TO_EMAIL;
-    const from = process.env.CONTACT_FROM_EMAIL || 'PureVelo Website <onboarding@resend.dev>';
+    const from = process.env.CONTACT_FROM_EMAIL || 'onboarding@resend.dev';
 
     if (!apiKey || !to) {
       return NextResponse.json({ error: 'Contact email service is not configured yet.' }, { status: 503 });
@@ -54,7 +54,7 @@ export async function POST(request) {
         from,
         to: [to],
         reply_to: email,
-        subject: `PureVelo enquiry — ${company}`,
+        subject: 'PureVelo Business Enquiry',
         text,
       }),
     });
