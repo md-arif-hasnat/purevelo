@@ -12,6 +12,10 @@ const products = [
 export default function Home() {
   const [status, setStatus] = useState('');
   const [sending, setSending] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
+
   async function submitContact(e) {
     e.preventDefault();
     const form = e.currentTarget;
@@ -34,8 +38,25 @@ export default function Home() {
       setSending(false);
     }
   }
+
   return <>
-    <header className="site-header"><div className="nav-shell"><a className="brand" href="#home" aria-label="PureVelo home"><img src="/purevelo-logo.png" alt="PureVelo"/></a><nav className="main-nav"><a href="#home">Home</a><a href="#about">About Us</a><a href="#products">Products</a><a href="#quality">Quality & Manufacturing</a><a href="#b2b">B2B & Distribution</a><a href="#contact">Contact</a></nav><a className="nav-cta" href="#b2b">Become a Distributor</a></div></header>
+    <header className="site-header">
+      <div className="nav-shell">
+        <a className="brand" href="#home" aria-label="PureVelo home" onClick={closeMenu}><img src="/purevelo-logo.png" alt="PureVelo"/></a>
+        <nav className="main-nav"><a href="#home">Home</a><a href="#about">About Us</a><a href="#products">Products</a><a href="#quality">Quality & Manufacturing</a><a href="#b2b">B2B & Distribution</a><a href="#contact">Contact</a></nav>
+        <a className="nav-cta" href="#b2b">Become a Distributor</a>
+        <button className={`menu-toggle${menuOpen ? ' open' : ''}`} type="button" aria-label="Toggle navigation menu" aria-expanded={menuOpen} onClick={()=>setMenuOpen(v=>!v)}><span></span><span></span><span></span></button>
+      </div>
+      <nav className={`mobile-nav${menuOpen ? ' open' : ''}`} aria-label="Mobile navigation">
+        <a href="#home" onClick={closeMenu}>Home</a>
+        <a href="#about" onClick={closeMenu}>About Us</a>
+        <a href="#products" onClick={closeMenu}>Products</a>
+        <a href="#quality" onClick={closeMenu}>Quality & Manufacturing</a>
+        <a href="#b2b" onClick={closeMenu}>B2B & Distribution</a>
+        <a href="#contact" onClick={closeMenu}>Contact</a>
+        <a className="mobile-distributor" href="#b2b" onClick={closeMenu}>Become a Distributor</a>
+      </nav>
+    </header>
     <main id="home">
       <section className="hero hero-banner" aria-label="PureVelo premium durum wheat foods"><img className="hero-banner-image" src="/hero.png" alt="PureVelo premium durum wheat foods"/></section>
       <section className="pillars shell" id="about"><div className="section-title"><p className="eyebrow navy">Our Promise</p><h2>Good Food Starts With Good Grain.</h2></div><div className="pillar-grid"><article><div className="icon">01</div><h3>Carefully Selected Grains</h3><p>We focus on appropriate grain quality and dependable raw materials for consistent products.</p></article><article><div className="icon">02</div><h3>Pure Ingredients</h3><p>Our range is built around durum wheat and straightforward food formulations.</p></article><article><div className="icon">03</div><h3>Hygienic Manufacturing</h3><p>Controlled production and careful handling support consistency from processing to packing.</p></article><article><div className="icon">04</div><h3>Made for Everyday Meals</h3><p>From quick breakfasts to family dinners, PureVelo fits naturally into modern kitchens.</p></article></div></section>
