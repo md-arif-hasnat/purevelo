@@ -3,12 +3,12 @@
 import { useState } from 'react';
 
 const products = [
-  { name: 'Roasted Chutki Shemai', image: 'https://images.unsplash.com/photo-1551462147-1c15e4852bbf?auto=format&fit=crop&fm=jpg&q=82&w=1200', note: 'Roasted Chutki Shemai · Net Wt. 350g (12.34 oz).' },
-  { name: 'Premium Fusilli', image: 'https://images.unsplash.com/photo-1745857465015-e24d6fb9ac00?auto=format&fit=crop&fm=jpg&q=82&w=1200', note: 'Helical, corkscrew or twisted shape · Cooking time: 15 min · Net content: 250g (8.82 oz).' },
-  { name: 'Roasted Pasta Vermicelli', image: 'https://images.unsplash.com/photo-1551462147-1c15e4852bbf?auto=format&fit=crop&fm=jpg&q=82&w=1200', note: 'Roasted vermicelli · 100% Suji based · Net Wt. 200g (7.05 oz).' },
-  { name: 'Premium Conchiglie', image: 'https://images.unsplash.com/photo-1539267821515-9a48cb52c2bb?auto=format&fit=crop&fm=jpg&q=82&w=1200', note: 'Soft shell-shaped pasta · Cooking time: 15 min · Net content: 250g (8.82 oz).' },
-  { name: 'Mini Spaghetti', image: 'https://images.unsplash.com/photo-1551462147-1c15e4852bbf?auto=format&fit=crop&fm=jpg&q=82&w=1200', note: 'A long, thin, cylindrical pasta staple · Net Wt. 200g (7.05 oz).' },
-  { name: 'Premium Penne', image: 'https://images.unsplash.com/photo-1539267821515-9a48cb52c2bb?auto=format&fit=crop&fm=jpg&q=82&w=1200', note: 'Soft, straight, bright mode · Cooking time: 15 min · Net content: 250g (8.82 oz).' },
+  { name: 'Roasted Chutki Shemai', image: '/products/Chutki%20Shemai.jpg', note: 'Roasted Chutki Shemai · Net Wt. 350g (12.34 oz).' },
+  { name: 'Premium Fusilli', image: '/products/Premium%20Fusilli.jpg', note: 'Helical, corkscrew or twisted shape · Cooking time: 15 min · Net content: 250g (8.82 oz).' },
+  { name: 'Roasted Pasta Vermicelli', image: '/products/Roasted%20Pasta%20Vermicelli.jpg', note: 'Roasted vermicelli · 100% Suji based · Net Wt. 200g (7.05 oz).' },
+  { name: 'Premium Conchiglie', image: '/products/Premium%20Conchiglie.jpg', note: 'Soft shell-shaped pasta · Cooking time: 15 min · Net content: 250g (8.82 oz).' },
+  { name: 'Mini Spaghetti', image: '/products/Mini%20Spaghetti.jpg', note: 'A long, thin, cylindrical pasta staple · Net Wt. 200g (7.05 oz).' },
+  { name: 'Premium Penne', image: '/products/Premium%20Penne.jpg', note: 'Soft, straight, bright mode · Cooking time: 15 min · Net content: 250g (8.82 oz).' },
 ];
 
 export default function Home() {
