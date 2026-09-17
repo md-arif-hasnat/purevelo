@@ -3,6 +3,11 @@
 import { useEffect, useState } from 'react';
 
 const products = [
+  { name: 'Farfalle', image: '/products/Farfalle.png', note: 'Classic bow-tie shaped pasta · Cooking time: 12 min · Net content: 250g (8.82 oz).' },
+  { name: 'Macaroni', image: '/products/Macaroni.png', note: 'Classic curved tube pasta for versatile meals · Net content: 250g (8.82 oz).' },
+  { name: 'Rigatoni', image: '/products/Rigatoni.png', note: 'Large ridged tube pasta designed to hold sauces beautifully · Net content: 250g (8.82 oz).' },
+  { name: 'Linguine', image: '/products/Linguine.png', note: 'Long, flat pasta strands with an elegant texture · Cooking time: 8 min · Net content: 250g (8.82 oz).' },
+  { name: 'Cavatappi', image: '/products/Cavatappi.png', note: 'Spiral tube pasta with curves that hold more flavour · Cooking time: 10 min · Net content: 250g (8.82 oz).' },
   { name: 'Premium Fusilli', image: '/products/Premium%20Fusilli.jpg', note: 'Helical, corkscrew or twisted shape · Cooking time: 15 min · Net content: 250g (8.82 oz).' },
   { name: 'Premium Conchiglie', image: '/products/Premium%20Conchiglie.jpg', note: 'Soft shell-shaped pasta · Cooking time: 15 min · Net content: 250g (8.82 oz).' },
   { name: 'Premium Penne', image: '/products/Premium%20Penne.jpg', note: 'Soft, straight, bright mode · Cooking time: 15 min · Net content: 250g (8.82 oz).' },
