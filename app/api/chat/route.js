@@ -42,7 +42,7 @@ function freeReply(raw){
  if(has('retailer','retail business','supermarket','grocery chain')) return 'Retailers and supermarkets are welcome to contact our team through the Business Enquiry form or contact@purevelofood.com.';
  if(has('food service','restaurant supply','hotel supply','horeca')) return 'We welcome food-service business enquiries. Please use the Business Enquiry form or email contact@purevelofood.com.';
  if(has('b2b','business enquiry','business inquiry','trade enquiry','trade inquiry')) return 'For B2B enquiries, please use the Business Enquiry form on this page or email contact@purevelofood.com.';
- if(has('export','international buyer','global inquiry','global enquiry','overseas')) return 'For international or export-related business enquiries, please contact us through the Business Enquiry form or email contact@purevelofood.com. Specific export markets and terms should be confirmed by our team.';
+ if(has('export','international buyer','global inquiry','global enquiry','overseas')) return {reply:'We welcome international business enquiries. Please contact our team.',action:{type:'contact',label:'Send Business Enquiry'}};
  if(has('price','pricing','cost','rate','quotation','quote','price list')) return 'Prices and quotations are not published in this website assistant. Please use the Business Enquiry form or email contact@purevelofood.com for an accurate quotation.';
  if(has('moq','minimum order','minimum quantity','order quantity')) return 'MOQ is not confirmed in this website assistant. Please use the Business Enquiry form or email contact@purevelofood.com for the applicable minimum order quantity.';
  if(has('payment term','payment method','credit term','advance payment')) return 'Payment terms are not confirmed in this website assistant. Please contact our business team for the applicable terms.';
@@ -54,8 +54,8 @@ function freeReply(raw){
  if(has('allergen','allergy','gluten','egg','contains')) return 'Allergen information should be verified from the specific product packaging or directly with our team before purchase or consumption.';
  if(has('shelf life','expiry','expiration','best before')) return 'Shelf-life and best-before information should be checked on the specific product packaging or confirmed with our team.';
  if(has('recipe','recipes','how to serve','serving idea')) return 'For serving ideas, please explore the PureVelo website content. For product-specific preparation, follow the instructions on the pack.';
- if(has('sample','product sample','send sample')) return 'For product sample requests, please submit a Business Enquiry with your company and market details so our team can review the request.';
- if(has('catalog','catalogue','brochure')) return 'For a current product catalogue or business materials, please use the Business Enquiry form or email contact@purevelofood.com.';
+ if(has('sample','product sample','send sample')) return {reply:'Sample requests can be submitted through our Business Enquiry form.',action:{type:'contact',label:'Request a Sample'}};
+ if(has('catalog','catalogue','brochure')) return {reply:'Please contact our business team for the latest catalogue. You can also reach us on Facebook.',action:{type:'facebook',label:'Message us on Facebook',href:'https://www.facebook.com/uftbd'}};
  if(has('private label','oem','contract manufacturing','custom packaging')) return 'Private-label, OEM and custom-packaging capabilities are not confirmed in this assistant. Please send your requirements through the Business Enquiry form.';
  if(has('job','career','vacancy','employment','work for')) return 'Current vacancies are not listed in this assistant. You can contact contact@purevelofood.com for company-related enquiries.';
  if(has('website','official site','web site')) return 'You are on the official PureVelo website. You can browse our products and use the Business Enquiry section for commercial enquiries.';
@@ -71,7 +71,7 @@ export async function POST(request) {
   if(!messages.length) return Response.json({error:'Message required.'},{status:400});
   const latest=String(messages[messages.length-1]?.content||'').slice(0,500);
   const local=freeReply(latest);
-  if(local) return Response.json({reply:local,source:'local'});
+  if(local) return Response.json(typeof local==='string'?{reply:local,source:'local'}:{...local,source:'local'});
   if(!process.env.OPENAI_API_KEY) return Response.json({reply:'I can help with PureVelo products, contact details, company information and distributor enquiries. For anything else, please use the Business Enquiry form or email contact@purevelofood.com.',source:'fallback'});
   const input=[{role:'system',content:KNOWLEDGE},...messages.map(m=>({role:m.role==='assistant'?'assistant':'user',content:String(m.content||'').slice(0,500)}))];
   const res=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${process.env.OPENAI_API_KEY}`},body:JSON.stringify({model:'gpt-5.6-luna',input,max_output_tokens:180,reasoning:{effort:'none'}})});
