@@ -4,7 +4,7 @@ Only answer from verified business information. Never invent prices, MOQ, certif
 PureVelo is manufactured by Velora Grain & Foods in Baramati, Maharashtra, India.
 Brand positioning: Inspired by Italy. Crafted in India.
 Business enquiries are welcomed from distributors, importers, wholesalers, retailers, supermarkets and food-service buyers.
-Contact: contact@purevelofood.com, +91 75880 34596.
+Contact: contact@purevelofood.com, +91 75880 34596.\nFacebook: https://www.facebook.com/uftbd
 Address: Industrial Drive, Plot No. E-128/E, Baramati MIDC, Bhigwan Road, Baramati, District Pune, Maharashtra 413133, India.
 Products displayed: Farfalle; Macaroni; Rigatoni; Linguine; Cavatappi; Premium Fusilli; Premium Conchiglie; Premium Penne; Mini Spaghetti; Roasted Pasta Vermicelli; Roasted Chutki Shemai.
 Known pack sizes: Farfalle 250g; Macaroni 250g; Rigatoni 250g; Linguine 250g; Cavatappi 250g; Premium Fusilli 250g; Premium Conchiglie 250g; Premium Penne 250g; Mini Spaghetti 200g; Roasted Pasta Vermicelli 200g; Roasted Chutki Shemai 350g.
@@ -16,7 +16,7 @@ function freeReply(raw){
  const q=raw.toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
  if(/^(hi|hello|hey|good morning|good afternoon|good evening)$/.test(q)) return 'Hello! Welcome to PureVelo. I can help with our products, pack sizes, cooking times, company information, contact details and distributor enquiries.';
  if(/product|pasta|vermicelli|shemai|range|what do you (have|sell)/.test(q)) return `Our current range includes: ${PRODUCTS} You can open any product card on this page for more details.`;
- if(/contact|email|phone|call|whatsapp|reach/.test(q)) return 'You can contact PureVelo at contact@purevelofood.com or +91 75880 34596. You can also use the Business Enquiry form on this page.';
+ if(/facebook|fb|social media|social page|social account/.test(q)) return 'You can follow us on Facebook: https://www.facebook.com/uftbd';\n if(/contact|email|phone|call|whatsapp|reach/.test(q)) return 'You can contact PureVelo at contact@purevelofood.com or +91 75880 34596. Facebook: https://www.facebook.com/uftbd. You can also use the Business Enquiry form on this page.';
  if(/address|location|where.*(based|located)|factory|manufactur/.test(q)) return 'PureVelo is manufactured by Velora Grain & Foods in Baramati, Maharashtra, India. Address: Industrial Drive, Plot No. E-128/E, Baramati MIDC, Bhigwan Road, Baramati, District Pune, Maharashtra 413133, India.';
  if(/distribut|importer|wholesale|retail|supermarket|food service|business enquiry|dealer|become.*partner/.test(q)) return 'We welcome enquiries from distributors, importers, wholesalers, retailers, supermarkets and food-service buyers. Please use the Business Enquiry form on this page or email contact@purevelofood.com.';
  if(/about|who.*purevelo|company|velora|origin|italy|india/.test(q)) return 'PureVelo is a brand manufactured by Velora Grain & Foods in Baramati, Maharashtra, India. Our positioning is: Inspired by Italy. Crafted in India.';
