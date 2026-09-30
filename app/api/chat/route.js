@@ -19,9 +19,9 @@ export async function POST(request) {
     const messages=Array.isArray(body.messages)?body.messages.slice(-8):[];
     if(!messages.length) return Response.json({error:'Message required.'},{status:400});
     const input=[{role:'system',content:KNOWLEDGE},...messages.map(m=>({role:m.role==='assistant'?'assistant':'user',content:String(m.content||'').slice(0,500)}))];
-    const r=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${process.env.OPENAI_API_KEY}`},body:JSON.stringify({model:'gpt-5.6-luna',input,max_output_tokens:250})});
+    const r=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${process.env.OPENAI_API_KEY}`},body:JSON.stringify({model:'gpt-5.6-luna',input,max_output_tokens:250,reasoning:{effort:'none'}})});
     const data=await r.json();
-    if(!r.ok) return Response.json({error:'AI service unavailable.'},{status:502});
+    if(!r.ok) { console.error('OpenAI API error',r.status,data?.error?.message||data?.error||'Unknown error'); return Response.json({error:'AI service unavailable.'},{status:502}); }
     const reply=(data.output||[]).flatMap(x=>x.content||[]).filter(x=>x.type==='output_text').map(x=>x.text).join('\n').trim();
     return Response.json({reply:reply||'Please contact contact@purevelofood.com for assistance.'});
   } catch {
