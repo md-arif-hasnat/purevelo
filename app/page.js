@@ -21,6 +21,8 @@ export default function Home() {
   const [sending, setSending] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatTopic, setChatTopic] = useState('');
   const closeMenu = () => setMenuOpen(false);
   const closeProduct = () => setSelectedProduct(null);
 
@@ -31,6 +33,13 @@ export default function Home() {
     window.addEventListener('keydown', onKeyDown);
     return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKeyDown); };
   }, [selectedProduct]);
+
+  const chatReplies = {
+    products: 'Explore our premium pasta, vermicelli and shemai range. You can open any product card for full details.',
+    distributor: 'We welcome distributors, importers, wholesalers, retailers and food-service buyers. Use the Business Enquiry form and our team usually replies within 48 hours.',
+    contact: 'Email: contact@purevelofood.com · Phone: +91 75880 34596',
+    origin: 'PureVelo is crafted in India and inspired by Italy. Our manufacturing base is in Baramati, Maharashtra.'
+  };
 
   async function submitContact(e) {
     e.preventDefault(); const form=e.currentTarget; setSending(true); setStatus('');
@@ -47,6 +56,23 @@ export default function Home() {
     <section className="quality" id="quality"><div className="shell quality-grid"><div><p className="eyebrow">Quality & Manufacturing</p><h2>Care at Every Stage.</h2><p>Our approach combines raw-material attention, controlled processing, hygiene and market-ready packaging.</p></div><ol><li><span>01</span><div><b>Selected Raw Materials</b><p>Quality-focused sourcing for the intended product.</p></div></li><li><span>02</span><div><b>Controlled Processing</b><p>Process discipline for consistency across batches.</p></div></li><li><span>03</span><div><b>Hygienic Handling</b><p>Clean handling practices through production and packing.</p></div></li><li><span>04</span><div><b>Market Ready</b><p>Prepared for retail, wholesale, distribution and export enquiries.</p></div></li></ol></div></section>
     <section className="b2b" id="b2b"><div className="shell b2b-grid"><div><p className="eyebrow">B2B & Distribution</p><h2>Bring PureVelo to Your Market.</h2><p>We welcome enquiries from distributors, importers, wholesalers, retailers, supermarkets and food-service buyers.</p><div className="b2b-tags"><span>Distributors</span><span>Importers</span><span>Wholesale</span><span>Retail</span><span>Food Service</span><span>Export</span></div><div className="b2b-contact"><p className="b2b-contact-label">Email</p><a href="mailto:contact@purevelofood.com">contact@purevelofood.com</a><p className="b2b-contact-label phone-label">Phone</p><a href="tel:+917588034596">+91 75880 34596</a></div></div><div className="contact-panel" id="contact"><h3>Business Enquiry</h3><p className="response-time">Usually replies within 48h</p><form onSubmit={submitContact}><div className="form-row"><input name="name" placeholder="Your name" required/><input name="company" placeholder="Company name" required/></div><div className="form-row"><input type="email" name="email" placeholder="Business email" required/><input type="text" inputMode="numeric" pattern="[0-9]*" name="phone" placeholder="Phone / WhatsApp" onInput={(e)=>{e.currentTarget.value=e.currentTarget.value.replace(/[^0-9]/g,'')}}/></div><div className="form-row"><input name="country" placeholder="Country"/><select name="businessType" defaultValue=""><option value="" disabled>Business type</option><option>Distributor</option><option>Importer</option><option>Wholesaler</option><option>Retailer</option><option>Food Service</option><option>Other</option></select></div><textarea name="message" placeholder="Tell us the products, pack sizes and estimated quantity you are interested in." required/><button className="btn gold full" type="submit" disabled={sending}>{sending?'Sending…':'Send Enquiry'}</button>{status&&<p className="form-status">{status}</p>}</form></div></div></section>
     <section className="contact-details"><div className="shell contact-details-grid"><div><p className="eyebrow navy">Contact</p><h2>Velora Grain & Foods</h2></div><address>Industrial Drive, Plot No. E-128/E,<br/>Baramati MIDC, Bhigwan Road, Baramati,<br/>District: Pune, Maharashtra - 413133, India</address></div></section></main><footer><div className="shell footer-grid"><img className="footer-logo" src="/purevelo-logo.png" alt="PureVelo"/><p>Premium Durum Wheat Vermicelli & Pasta<br/><span className="footer-origin">Inspired by Italy. Crafted in India.</span></p><p>© 2026 PureVelo · Velora Grain & Foods</p></div></footer>
+    <aside className={`chatbot${chatOpen?' open':''}`} aria-label="PureVelo assistant">
+      {chatOpen&&<div className="chat-panel">
+        <div className="chat-head"><div><strong>PureVelo Assistant</strong><span>How can we help?</span></div><button type="button" onClick={()=>setChatOpen(false)} aria-label="Close chat">×</button></div>
+        <div className="chat-body"><div className="bot-message">Hello! Welcome to PureVelo. Choose a topic below and I’ll help you.</div>
+          <div className="chat-options">
+            <button type="button" onClick={()=>setChatTopic('products')}>Our Products</button>
+            <button type="button" onClick={()=>setChatTopic('distributor')}>Become Our Distributor</button>
+            <button type="button" onClick={()=>setChatTopic('origin')}>About PureVelo</button>
+            <button type="button" onClick={()=>setChatTopic('contact')}>Contact Us</button>
+          </div>
+          {chatTopic&&<div className="bot-message answer">{chatReplies[chatTopic]}</div>}
+          {chatTopic==='products'&&<a className="chat-link" href="#products" onClick={()=>setChatOpen(false)}>View Products</a>}
+          {chatTopic==='distributor'&&<a className="chat-link" href="#contact" onClick={()=>setChatOpen(false)}>Send Business Enquiry</a>}
+        </div>
+      </div>}
+      <button className="chat-launcher" type="button" onClick={()=>setChatOpen(v=>!v)} aria-expanded={chatOpen} aria-label="Chat with PureVelo"><span className="chat-bubble-icon">✦</span><span>Chat with PureVelo</span></button>
+    </aside>
     {selectedProduct&&<div className="product-modal" role="dialog" aria-modal="true" aria-label={`${selectedProduct.name} details`} onMouseDown={(e)=>{if(e.target===e.currentTarget)closeProduct()}}><div className="product-modal-card"><button className="modal-close" type="button" onClick={closeProduct} aria-label="Close product details">×</button><div className="modal-image"><img src={selectedProduct.image} alt={selectedProduct.name}/></div><div className="modal-info"><p className="eyebrow navy">PureVelo Product</p><h2>{selectedProduct.name}</h2><p>{selectedProduct.note}</p><a className="btn gold" href="#contact" onClick={closeProduct}>Business Enquiry</a></div></div></div>}
   </>;
 }
