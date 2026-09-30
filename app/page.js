@@ -23,6 +23,9 @@ export default function Home() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [chatOpen, setChatOpen] = useState(false);
   const [chatTopic, setChatTopic] = useState('');
+  const [chatInput, setChatInput] = useState('');
+  const [chatSending, setChatSending] = useState(false);
+  const [chatMessages, setChatMessages] = useState([]);
   const closeMenu = () => setMenuOpen(false);
   const closeProduct = () => setSelectedProduct(null);
 
@@ -40,6 +43,19 @@ export default function Home() {
     contact: 'Email: contact@purevelofood.com · Phone: +91 75880 34596',
     origin: 'PureVelo is crafted in India and inspired by Italy. Our manufacturing base is in Baramati, Maharashtra.'
   };
+
+  async function sendChat(e) {
+    e.preventDefault();
+    const message=chatInput.trim(); if(!message||chatSending)return;
+    const next=[...chatMessages,{role:'user',content:message}];
+    setChatMessages(next); setChatInput(''); setChatSending(true); setChatTopic('');
+    try{
+      const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:next.slice(-8)})});
+      const data=await res.json(); if(!res.ok)throw new Error(data.error||'Chat unavailable');
+      setChatMessages(m=>[...m,{role:'assistant',content:data.reply}]);
+    }catch(err){setChatMessages(m=>[...m,{role:'assistant',content:'Sorry, live chat is temporarily unavailable. Please email contact@purevelofood.com or use our Business Enquiry form.'}]);}
+    finally{setChatSending(false);}
+  }
 
   async function submitContact(e) {
     e.preventDefault(); const form=e.currentTarget; setSending(true); setStatus('');
@@ -69,7 +85,10 @@ export default function Home() {
           {chatTopic&&<div className="bot-message answer">{chatReplies[chatTopic]}</div>}
           {chatTopic==='products'&&<a className="chat-link" href="#products" onClick={()=>setChatOpen(false)}>View Products</a>}
           {chatTopic==='distributor'&&<a className="chat-link" href="#contact" onClick={()=>setChatOpen(false)}>Send Business Enquiry</a>}
+          {chatMessages.map((m,i)=><div className={`chat-message ${m.role}`} key={i}>{m.content}</div>)}
+          {chatSending&&<div className="chat-message assistant typing">PureVelo is typing…</div>}
         </div>
+        <form className="chat-compose" onSubmit={sendChat}><input value={chatInput} onChange={e=>setChatInput(e.target.value)} placeholder="Type your message…" maxLength={500} aria-label="Chat message"/><button type="submit" disabled={chatSending||!chatInput.trim()}>Send</button></form>
       </div>}
       <button className="chat-launcher" type="button" onClick={()=>setChatOpen(v=>!v)} aria-expanded={chatOpen} aria-label="Chat with PureVelo"><span className="chat-bubble-icon">✦</span><span>Chat with PureVelo</span></button>
     </aside>
