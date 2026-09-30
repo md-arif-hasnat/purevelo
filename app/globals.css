@@ -26,3 +26,8 @@
 @media(max-width:620px){
  .chatbot{top:50%!important;right:10px!important;bottom:auto!important;transform:translateY(-50%)!important}
 }
+
+/* Mobile chatbot logo: 15% larger */
+@media(max-width:620px){
+ .chat-launcher .chat-bubble-icon{width:67px!important;height:67px!important}
+}
