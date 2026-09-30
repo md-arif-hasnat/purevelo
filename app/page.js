@@ -52,7 +52,7 @@ export default function Home() {
     try{
       const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:next.slice(-8)})});
       const data=await res.json(); if(!res.ok)throw new Error(data.error||'Chat unavailable');
-      setChatMessages(m=>[...m,{role:'assistant',content:data.reply}]);
+      setChatMessages(m=>[...m,{role:'assistant',content:data.reply,action:data.action||null}]);
     }catch(err){setChatMessages(m=>[...m,{role:'assistant',content:'Sorry, live chat is temporarily unavailable. Please email contact@purevelofood.com or use our Business Enquiry form.'}]);}
     finally{setChatSending(false);}
   }
@@ -85,7 +85,7 @@ export default function Home() {
           {chatTopic&&<div className="bot-message answer">{chatReplies[chatTopic]}</div>}
           {chatTopic==='products'&&<a className="chat-link" href="#products" onClick={()=>setChatOpen(false)}>View Products</a>}
           {chatTopic==='distributor'&&<a className="chat-link" href="#contact" onClick={()=>setChatOpen(false)}>Send Business Enquiry</a>}
-          {chatMessages.map((m,i)=><div className={`chat-message ${m.role}`} key={i}>{m.content}</div>)}
+          {chatMessages.map((m,i)=><div className={`chat-message ${m.role}`} key={i}>{m.content}{m.role==='assistant'&&m.action?.type==='contact'&&<a className="chat-link" href="#contact" onClick={()=>setChatOpen(false)}>{m.action.label||'Send Business Enquiry'}</a>}{m.role==='assistant'&&m.action?.type==='facebook'&&<a className="chat-link" href={m.action.href} target="_blank" rel="noopener noreferrer">{m.action.label||'Facebook'}</a>}</div>)}
           {chatSending&&<div className="chat-message assistant typing">PureVelo is typing…</div>}
         </div>
         <form className="chat-compose" onSubmit={sendChat}><input value={chatInput} onChange={e=>setChatInput(e.target.value)} placeholder="Type your message…" maxLength={500} aria-label="Chat message"/><button type="submit" disabled={chatSending||!chatInput.trim()}>Send</button></form>
