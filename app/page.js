@@ -90,7 +90,7 @@ export default function Home() {
         </div>
         <form className="chat-compose" onSubmit={sendChat}><input value={chatInput} onChange={e=>setChatInput(e.target.value)} placeholder="Type your message…" maxLength={500} aria-label="Chat message"/><button type="submit" disabled={chatSending||!chatInput.trim()}>Send</button></form>
       </div>}
-      <button className="chat-launcher" type="button" onClick={()=>setChatOpen(v=>!v)} aria-expanded={chatOpen} aria-label="Chat with PureVelo"><span className="chat-bubble-icon" aria-hidden="true"><span className="agent-head"></span><span className="agent-body"></span><span className="agent-dot left"></span><span className="agent-dot right"></span></span><span>Chat with PureVelo</span></button>
+      <button className="chat-launcher" type="button" onClick={()=>setChatOpen(v=>!v)} aria-expanded={chatOpen} aria-label="Chat with PureVelo"><span className="chat-bubble-icon" aria-hidden="true"><img src="/chatbot-logo.png" alt=""/></span><span>Chat with PureVelo</span></button>
     </aside>
     {selectedProduct&&<div className="product-modal" role="dialog" aria-modal="true" aria-label={`${selectedProduct.name} details`} onMouseDown={(e)=>{if(e.target===e.currentTarget)closeProduct()}}><div className="product-modal-card"><button className="modal-close" type="button" onClick={closeProduct} aria-label="Close product details">×</button><div className="modal-image"><img src={selectedProduct.image} alt={selectedProduct.name}/></div><div className="modal-info"><p className="eyebrow navy">PureVelo Product</p><h2>{selectedProduct.name}</h2><p>{selectedProduct.note}</p><a className="btn gold" href="#contact" onClick={closeProduct}>Business Enquiry</a></div></div></div>}
   </>;
