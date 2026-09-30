@@ -31,3 +31,5 @@
 @media(max-width:620px){
  .chat-launcher .chat-bubble-icon{width:67px!important;height:67px!important}
 }
+
+/* Trigger production deploy: mobile chatbot final sizing */
