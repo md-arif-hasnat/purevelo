@@ -44,3 +44,9 @@
   .product-image{height:305px}
   .product-image img{object-position:center 15px}
 }
+
+/* Adjust final mobile product top space from +15px to +5px */
+@media(max-width:620px){
+  .product-image{height:295px}
+  .product-image img{object-position:center 5px}
+}
