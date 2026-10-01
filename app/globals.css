@@ -38,3 +38,9 @@
 @media(max-width:620px){
   .product-image{height:290px}
 }
+
+/* Additional 15px mobile product image space at top */
+@media(max-width:620px){
+  .product-image{height:305px}
+  .product-image img{object-position:center 15px}
+}
