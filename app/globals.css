@@ -50,3 +50,9 @@
   .product-image{height:295px}
   .product-image img{object-position:center 5px}
 }
+
+/* Final mobile product image spacing: remove extra top offset, add 5px to bottom */
+@media(max-width:620px){
+  .product-image{height:300px}
+  .product-image img{object-position:center top}
+}
