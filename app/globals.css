@@ -33,3 +33,8 @@
 }
 
 /* Trigger production deploy: mobile chatbot final sizing */
+
+/* Mobile product image breathing room */
+@media(max-width:620px){
+  .product-image{height:290px}
+}
